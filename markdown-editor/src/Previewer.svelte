@@ -1,6 +1,15 @@
 <script lang="ts">
 import marked from 'marked'
 import DOMPurify from 'dompurify'
+import hljs, { supportedLangNames } from './highlight'
+
+marked.setOptions({
+  highlight(code: string, langName: string, callback?: (error: any, code?: string) => void): string | void {
+    if (supportedLangNames.has(langName)) {
+      return hljs.highlight(code, {language: langName}, true).value
+    }
+  }
+})
 
 export let source: string = ''
 

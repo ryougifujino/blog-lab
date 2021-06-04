@@ -1,4 +1,5 @@
 <script lang="ts">
+import 'github-markdown-css'
 import marked from 'marked'
 import DOMPurify from 'dompurify'
 import hljs, { supportedLangNames } from './highlight'
@@ -17,7 +18,7 @@ export let source: string = ''
 $: compiledSecureHTML = DOMPurify.sanitize(marked(source))
 </script>
 
-<article class="previewer">
+<article class="previewer markdown-body">
   {@html compiledSecureHTML}
 </article>
 

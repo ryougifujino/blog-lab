@@ -4,6 +4,7 @@ import DOMPurify from 'dompurify'
 import hljs, { supportedLangNames } from './highlight'
 
 marked.setOptions({
+  gfm: true,
   highlight(code: string, langName: string, callback?: (error: any, code?: string) => void): string | void {
     if (supportedLangNames.has(langName)) {
       return hljs.highlight(code, {language: langName}, true).value

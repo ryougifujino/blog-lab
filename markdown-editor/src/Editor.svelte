@@ -1,12 +1,21 @@
 <script lang="ts">
+import { onMount } from 'svelte'
+import ace from 'ace-builds'
+import 'ace-builds/src-noconflict/ext-searchbox';
+import 'ace-builds/src-noconflict/mode-markdown';
+import 'ace-builds/src-noconflict/theme-dawn';
 
+onMount(() => {
+  const editor = ace.edit(el)
+})
+
+let el: Element
 export let onInput: (value: string) => void
 
 const handleInput = e => onInput(e.target.value)
 </script>
 
-<textarea class="editor" on:input={handleInput}>
-</textarea>
+<div class="editor" on:input={handleInput} bind:this={el}></div>
 
 <style>
 .editor {

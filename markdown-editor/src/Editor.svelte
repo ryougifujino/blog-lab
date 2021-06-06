@@ -6,16 +6,34 @@ import 'ace-builds/src-noconflict/mode-markdown';
 import 'ace-builds/src-noconflict/theme-dawn';
 
 onMount(() => {
-  const editor = ace.edit(el)
+  const editor = ace.edit(editorElement, {
+    showLineNumbers: false,
+    mode: "ace/mode/markdown",
+    theme: 'ace/theme/dawn',
+    newLineMode: 'unix',
+    fontFamily: 'Menlo, "Ubuntu Mono", Consolas, "Courier New", "Microsoft Yahei", ' +
+      '"Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif',
+    wrap: true,
+    showGutter: true,
+    showPrintMargin: false,
+    foldStyle: 'manual',
+    useSoftTabs: true,
+    scrollPastEnd: true
+  })
+
+  editor.container.style.fontSize = '15px'
+  editor.container.style.lineHeight = "1.25"
+  editor.renderer.updateFontSize()
+
+  // noinspection TypeScriptValidateTypes
+  editor.session.on('change', () => onInput(editor.session.getValue()))
 })
 
-let el: Element
+let editorElement: Element
 export let onInput: (value: string) => void
-
-const handleInput = e => onInput(e.target.value)
 </script>
 
-<div class="editor" on:input={handleInput} bind:this={el}></div>
+<div class="editor" bind:this={editorElement}></div>
 
 <style>
 .editor {
